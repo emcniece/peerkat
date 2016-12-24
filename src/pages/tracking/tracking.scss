@@ -1,0 +1,17 @@
+page-home {}
+
+button.dotted{
+  padding:1em;
+  font-size:1.2em;
+  border-radius: 4px;
+  border-width:5px;
+  border-style:dashed;
+  border-color:#aaa;
+  background:transparent;
+  color:#aaa;
+}
+button[block]{
+  display: block;
+  text-align: center;
+  width:100%;
+}

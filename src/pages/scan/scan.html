@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>
+      Find Networks
+    </ion-title>
+  </ion-navbar>
+
+  <ion-toolbar color="primary">
+    <ion-segment [(ngModel)]="scanMode" color="light">
+      <ion-segment-button value="scan">
+        Scan
+      </ion-segment-button>
+      <ion-segment-button value="manual">
+        Manual
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div [ngSwitch]="scanMode">
+    <div padding *ngSwitchCase="'scan'">
+
+      <div>
+        <ion-segment [(ngModel)]="netStorage">
+          <ion-segment-button value="saved">
+            Saved
+          </ion-segment-button>
+          <ion-segment-button value="scanned">
+            Scanned
+          </ion-segment-button>
+        </ion-segment>
+      </div>
+
+      <div [ngSwitch]="netStorage">
+        <ion-list *ngSwitchCase="'saved'">
+          <ion-item *ngFor="let net of savedNetworks" (click)="toggleTrackedNetwork(net)">
+            {{net.SSID}}
+            <ion-icon name="checkmark-circle" color="secondary" item-right *ngIf="isTracked(net)"></ion-icon>
+          </ion-item>
+        </ion-list>
+
+        <div *ngSwitchCase="'scanned'">
+          <button ion-button block outline color="primary" *ngIf="!scanning" (click)="toggleScan()">
+            Start Scan
+          </button>
+
+          <button ion-button block outline color="danger" *ngIf="scanning" (click)="toggleScan()">
+            Stop Scan
+          </button>
+
+          <ion-list>
+            <ion-item *ngFor="let net of foundNetworks" (click)="toggleTrackedNetwork(net)">
+              <h2>{{net.SSID}}</h2>
+              <p>{{net.BSSID}}</p>
+              <ion-icon name="checkmark-circle" color="secondary" item-right *ngIf="isTracked(net)"></ion-icon>
+            </ion-item>
+          </ion-list>
+        </div>
+      </div>
+
+
+    </div>
+
+    <div padding *ngSwitchCase="'manual'">
+      <ion-list >
+        <ion-item>
+          <ion-label stacked>SSID</ion-label>
+          <ion-input clearInput type="text" [(ngModel)]="ssidName" placeholder="SSID Name">
+          </ion-input>
+        </ion-item>
+      </ion-list>
+
+      <button ion-button block (click)="addNetwork(ssidName)">
+        Add Network
+      </button>
+    </div>
+  </div>
+
+</ion-content>
