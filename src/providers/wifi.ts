@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Platform } from 'ionic-angular';
+//import { Platform } from 'ionic-angular';
 
 import { MOCK_WIZARD } from './mock-wifi';
 
@@ -13,10 +13,8 @@ export class Wifi{
   wizard: any = undefined;
   scanning: boolean = false;
 
-  constructor(platform: Platform) {
-    platform.ready().then(() => {
-      this.init();
-    });
+  constructor() {
+    this.init();
   }
 
   init(){

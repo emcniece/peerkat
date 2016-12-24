@@ -6,10 +6,11 @@ import { TrackingPage } from '../tracking/tracking';
 
 import { Wifi } from '../../providers/wifi';
 import { Tracker } from '../../providers/tracker';
+import { Storage } from '../../providers/storage';
 
 @Component({
   selector: 'page-scan',
-  templateUrl: 'scan.html'
+  templateUrl: 'scan.html',
 })
 export class ScanPage {
   savedNetworks: any;
@@ -23,7 +24,8 @@ export class ScanPage {
     public toastCtrl: ToastController,
     public navCtrl: NavController,
     public wifi: Wifi,
-    public tracker: Tracker
+    public tracker: Tracker,
+    storage: Storage
   ){
     this.wifi.getNetworks().then(nets=>{
       this.savedNetworks = _.map(nets, (net)=>{
