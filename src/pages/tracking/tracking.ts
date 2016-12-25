@@ -24,4 +24,8 @@ export class TrackingPage {
   goToScan(){
     this.navCtrl.parent.select(2);
   }
+
+  removeNetwork(net){
+    this.tracker.removeNetwork(net);
+  }
 }
