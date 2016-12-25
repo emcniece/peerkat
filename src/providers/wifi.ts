@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Platform } from 'ionic-angular';
+//import { Platform } from 'ionic-angular';
 
 import { MOCK_WIZARD } from './mock-wifi';
 
@@ -12,11 +12,10 @@ export class Wifi{
   hasWifi: boolean = false;
   wizard: any = undefined;
   scanning: boolean = false;
+  canScan: boolean = true;
 
-  constructor(platform: Platform) {
-    platform.ready().then(() => {
-      this.init();
-    });
+  constructor() {
+    this.init();
   }
 
   init(){
@@ -47,6 +46,7 @@ export class Wifi{
         resolve(networks);
       }, (error)=>{
         reject('Network list fail:' + error);
+        self.canScan = false;
       });
 
     });

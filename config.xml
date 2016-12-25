@@ -36,6 +36,5 @@
     <plugin name="cordova-plugin-device" spec="1.1.4" />
     <plugin name="cordova-plugin-splashscreen" spec="~4.0.1" />
     <plugin name="com.pylonproducts.wifiwizard" spec="https://github.com/paraggarg37/WifiWizard.git" />
-    <plugin name="cordova-plugin-nativestorage" spec="~2.0.2" />
-    <plugin name="cordova-sqlite-storage" spec="~2.0.0" />
+    <plugin name="cordova-plugin-indexeddb2" spec="~1.0.0" />
 </widget>
