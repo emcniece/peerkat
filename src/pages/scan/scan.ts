@@ -75,8 +75,7 @@ export class ScanPage {
   }
 
   isTracked(network){
-    let index = _.findIndex(this.tracker.networks, (n)=>{ return n.SSID = network.SSID });
-    return index > -1;
+    return this.tracker.isTracked(network);
   }
 
   addNetwork(network){
@@ -95,22 +94,10 @@ export class ScanPage {
 
   toggleTrackedNetwork(network){
     if(this.isTracked(network)){
-      //let index = this.tracker.networks.indexOf(netName);
-      //this.tracker.networks.splice(index, 1);
-      this.tracker.networks = _.remove(this.tracker.networks, (n)=>{
-        return n.SSID == network.SSID;
-      });
+      this.tracker.removeNetwork(network);
     } else{
       this.addNetwork(network);
     }
   }
-
-    /*
-  updateNetInfo(){
-    this.wifi.getInfo().then(info=>{
-      this.currentNetwork = info;
-    });
-  }
-  */
 
 }
