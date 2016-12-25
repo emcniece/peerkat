@@ -32,6 +32,8 @@ export class ScanPage {
         return { SSID: net.replace(/"/g, '') };
       });
     });
+
+    storage.save('todo', 'test1');
   }
 
   toggleScan(){

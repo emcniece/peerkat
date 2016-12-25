@@ -12,6 +12,7 @@ export class Wifi{
   hasWifi: boolean = false;
   wizard: any = undefined;
   scanning: boolean = false;
+  canScan: boolean = true;
 
   constructor() {
     this.init();
@@ -45,6 +46,7 @@ export class Wifi{
         resolve(networks);
       }, (error)=>{
         reject('Network list fail:' + error);
+        self.canScan = false;
       });
 
     });
