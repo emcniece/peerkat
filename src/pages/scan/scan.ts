@@ -19,6 +19,7 @@ export class ScanPage {
   netStorage: any = 'saved';
   scanning: boolean = false;
   scanInterval: any;
+  manualInputNet: any = {SSID: ''};
 
   constructor(
     public toastCtrl: ToastController,
@@ -27,11 +28,15 @@ export class ScanPage {
     public tracker: Tracker,
     storage: Storage
   ){
-    this.wifi.getNetworks().then(nets=>{
-      this.savedNetworks = _.map(nets, (net)=>{
-        return { SSID: net.replace(/"/g, '') };
+    this.scanMode = this.wifi.canScan ? 'scan' : 'manual';
+
+    if(this.wifi.canScan){
+      this.wifi.getNetworks().then(nets=>{
+        this.savedNetworks = _.map(nets, (net)=>{
+          return { SSID: net.replace(/"/g, '') };
+        });
       });
-    });
+    }
 
     storage.save('todo', 'test1');
   }

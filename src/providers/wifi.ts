@@ -12,7 +12,7 @@ export class Wifi{
   hasWifi: boolean = false;
   wizard: any = undefined;
   scanning: boolean = false;
-  canScan: boolean = true;
+  canScan: boolean = false;
 
   constructor() {
     this.init();
@@ -31,6 +31,22 @@ export class Wifi{
     }
 
     this.wizard = wizard;
+    this.testScanning();
+    //this.testScanning().then(()=>{
+    //  console.log('test complete');
+    //});
+  }
+
+  testScanning(){
+    let self = this;
+
+    self.wizard.listNetworks((networks)=>{
+      console.log('Scanning supported');
+      self.canScan = true;
+    }, (error)=>{
+      console.error('Scanning not supported');
+      self.canScan = false;
+    });
   }
 
   getWizard(){
@@ -39,16 +55,14 @@ export class Wifi{
 
   getNetworks(){
     let self = this;
-    if(!self.wizard) this.init();
+    //if(!self.wizard) this.init();
 
     return new Promise((resolve, reject)=>{
       self.wizard.listNetworks((networks)=>{
         resolve(networks);
       }, (error)=>{
         reject('Network list fail:' + error);
-        self.canScan = false;
       });
-
     });
   }
 

@@ -5,7 +5,7 @@
     </ion-title>
   </ion-navbar>
 
-  <ion-toolbar color="primary">
+  <ion-toolbar color="primary" *ngIf="wifi.canScan">
     <ion-segment [(ngModel)]="scanMode" color="light">
       <ion-segment-button value="scan">
         Scan
@@ -60,19 +60,28 @@
         </div>
       </div>
 
-
     </div>
 
     <div padding *ngSwitchCase="'manual'">
+      <ion-card *ngIf="!wifi.canScan">
+        <ion-card-header>
+          <ion-icon name="alert" color="danger" item-left></ion-icon>
+          WiFi Not Available
+        </ion-card-header>
+        <ion-card-content>
+          WiFi scanning is not supported on this device. Enter a network name manually to track.
+        </ion-card-content>
+      </ion-card>
+
       <ion-list >
         <ion-item>
           <ion-label stacked>SSID</ion-label>
-          <ion-input clearInput type="text" [(ngModel)]="ssidName" placeholder="SSID Name">
+          <ion-input clearInput type="text" [(ngModel)]="manualInputNet.SSID" placeholder="SSID Name">
           </ion-input>
         </ion-item>
       </ion-list>
 
-      <button ion-button block (click)="addNetwork(ssidName)">
+      <button ion-button block (click)="addNetwork(manualInputNet)">
         Add Network
       </button>
     </div>
