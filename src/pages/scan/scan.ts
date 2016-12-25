@@ -6,10 +6,11 @@ import { TrackingPage } from '../tracking/tracking';
 
 import { Wifi } from '../../providers/wifi';
 import { Tracker } from '../../providers/tracker';
+import { Storage } from '../../providers/storage';
 
 @Component({
   selector: 'page-scan',
-  templateUrl: 'scan.html'
+  templateUrl: 'scan.html',
 })
 export class ScanPage {
   savedNetworks: any;
@@ -18,18 +19,26 @@ export class ScanPage {
   netStorage: any = 'saved';
   scanning: boolean = false;
   scanInterval: any;
+  manualInputNet: any = {SSID: ''};
 
   constructor(
     public toastCtrl: ToastController,
     public navCtrl: NavController,
     public wifi: Wifi,
-    public tracker: Tracker
+    public tracker: Tracker,
+    storage: Storage
   ){
-    this.wifi.getNetworks().then(nets=>{
-      this.savedNetworks = _.map(nets, (net)=>{
-        return { SSID: net.replace(/"/g, '') };
+    this.scanMode = this.wifi.canScan ? 'scan' : 'manual';
+
+    if(this.wifi.canScan){
+      this.wifi.getNetworks().then(nets=>{
+        this.savedNetworks = _.map(nets, (net)=>{
+          return { SSID: net.replace(/"/g, '') };
+        });
       });
-    });
+    }
+
+    storage.save('todo', 'test1');
   }
 
   toggleScan(){

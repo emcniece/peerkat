@@ -39,7 +39,7 @@
     "cordova-plugin-splashscreen",
     "ionic-plugin-keyboard",
     "https://github.com/paraggarg37/WifiWizard.git",
-    "cordova-plugin-nativestorage"
+    "cordova-plugin-indexeddb2"
   ],
   "cordovaPlatforms": [
     "ios",
