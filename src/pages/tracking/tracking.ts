@@ -28,4 +28,12 @@ export class TrackingPage {
   removeNetwork(net){
     this.tracker.removeNetwork(net);
   }
+
+  toggleAction(net, action){
+    if(net.actions[action]){
+      this.tracker.removeAction(net, action);
+    } else{
+      this.tracker.addAction(net, action);
+    }
+  }
 }
