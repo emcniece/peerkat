@@ -32,9 +32,6 @@ export class Wifi{
 
     this.wizard = wizard;
     this.testScanning();
-    //this.testScanning().then(()=>{
-    //  console.log('test complete');
-    //});
   }
 
   testScanning(){

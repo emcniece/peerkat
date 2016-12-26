@@ -10,6 +10,7 @@ export class Tracker {
   }
 
   addNetwork(net){
+    net.actions = {in: true, out: true};
     this.networks.push(net);
   }
 
@@ -22,6 +23,17 @@ export class Tracker {
 
   isTracked(net){
     return _.findIndex(this.networks, ['SSID', net.SSID]) > -1;
+  }
+
+  addAction(net, action){
+    net.actions[action] = true;
+    _.find(this.networks, ['SSID', net.SSID]).actions[action] = true;
+    return net;
+  }
+
+  removeAction(net, action){
+    _.find(this.networks, ['SSID', net.SSID]).actions[action] = false;
+    return net;
   }
 
 }

@@ -15,18 +15,43 @@
     </button>
   </div>
 
-  <ion-list>
-
+  <ion-list class="net-actions">
     <ion-item-sliding #itemSliding *ngFor="let net of tracker.networks">
       <ion-item>
         <h2>{{net.SSID}}</h2>
+        <button ion-button item-right icon-only clear
+          (click)="toggleAction(net, 'in')"
+          [color]="net.actions.in ? 'primary' : 'grey'">
+          <ion-icon name="log-in"></ion-icon>
+        </button>
+
+        <button ion-button item-right icon-only clear
+          (click)="toggleAction(net, 'out')"
+          [color]="net.actions.out ? 'secondary' : 'grey'">
+          <ion-icon name="log-out"></ion-icon>
+        </button>
+
         <ion-icon name="swap" item-right color="grey"></ion-icon>
       </ion-item>
 
       <ion-item-options side="right">
+        <button ion-button color="primary"
+          [outline]="!net.actions.in ? true : null"
+          (click)="toggleAction(net, 'in')">
+          <ion-icon name="log-in"></ion-icon>
+          In
+        </button>
+
+        <button ion-button color="secondary"
+          [outline]="!net.actions.out ? true : null"
+          (click)="toggleAction(net, 'out')">
+          <ion-icon name="log-out"></ion-icon>
+          Out
+        </button>
+
         <button ion-button color="danger" (click)="removeNetwork(net)">
           <ion-icon name="trash"></ion-icon>
-          Delete
+
         </button>
       </ion-item-options>
     </ion-item-sliding>
